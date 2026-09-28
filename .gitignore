@@ -1,0 +1,9 @@
+# 890 MB source mesh: over GitHub's 100 MB limit and not used by the site
+# (the page loads the compressed static/models/wudi_leap.glb instead)
+static/assets/leap_render.obj
+
+# explainer decks: not linked from the site; remove these lines to publish them
+WUDI_explainer_8slides_v2.pptx
+WUDI_explainer_9slides_animated.pptx
+
+.DS_Store

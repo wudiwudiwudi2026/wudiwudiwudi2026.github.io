@@ -24,6 +24,17 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/parts-explorer-data.js"></script>
+  <script src="./static/js/parts-explorer.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="./static/js/model-viewer.js"></script>
 </head>
 <body>
 
@@ -51,20 +62,6 @@
           <span class="author-block">
             Anonymous Authors<br>
             Under review · ICRA 2027
-          </span>
-        </div>
-        <div class="publication-links" style="margin-top: 1.25rem;">
-          <span class="link-block">
-            <a href="./WUDI_ICRA27.pdf" class="external-link button is-normal is-rounded">
-              <span class="icon"><i class="fas fa-file-pdf"></i></span>
-              <span>Paper</span>
-            </a>
-          </span>
-          <span class="link-block">
-            <a href="https://wudiwudiwudi2026.github.io/" class="external-link button is-normal is-rounded">
-              <span class="icon"><i class="fas fa-home"></i></span>
-              <span>Project</span>
-            </a>
           </span>
         </div>
       </div>
@@ -147,42 +144,157 @@
         embodiment-specific four-bar linkages that transmit MCP/PIP flexion.
       </p>
       <br/>
-      <div class="columns is-centered is-vcentered">
-        <div class="column is-half has-text-centered">
-          <img src="./static/images/fig2_components.jpg" alt="WUDI components for WUJI and LEAP."
-               style="border-radius: 8px; width: 100%;">
-          <p class="has-text-grey is-size-7" style="margin-top: 0.5rem;">Fig. 2 — Shared exoskeleton + passive hand + linkages (WUJI left, LEAP right).</p>
+      <!-- Interactive component figure: hover/click a part to isolate it and open its mechanism detail
+           (logic in static/js/parts-explorer.js; without JS the labelled figure shows as a plain image) -->
+      <div class="parts-explorer" data-dim-src="./static/images/parts/figure_dim.jpg"
+           data-lit-src="./static/images/parts/figure_clean.jpg">
+        <div class="px-figure">
+          <img src="./static/images/parts/figure.jpg" width="1982" height="933"
+               alt="The three components of WUDI for WUJI Hand v1 (left) and LEAP Hand (right): exoskeleton, linkage, and passive hand.">
         </div>
-        <div class="column is-half has-text-centered">
-          <img src="./static/images/fig_parts_labels.jpg" alt="Labeled exoskeleton, linkage, and passive hand."
-               style="border-radius: 8px; width: 100%;">
-          <p class="has-text-grey is-size-7" style="margin-top: 0.5rem;">Exoskeleton, linkage, and passive hand.</p>
+        <p class="px-caption">
+          WUJI Hand v1 (left) · LEAP Hand (right). A shared sensorized exoskeleton connects to interchangeable passive
+          hands through embodiment-specific linkages.
+        </p>
+
+        <div class="px-bar">
+          <span class="px-prompt">Explore a component:</span>
+          <button type="button" class="px-tab" data-part="exo" aria-expanded="false" aria-controls="px-card-exo">Exoskeleton</button>
+          <button type="button" class="px-tab" data-part="linkage" aria-expanded="false" aria-controls="px-card-linkage">Linkage</button>
+          <button type="button" class="px-tab" data-part="passive" aria-expanded="false" aria-controls="px-card-passive">Passive Hand</button>
+        </div>
+
+        <div class="px-detail">
+          <div class="px-drawer">
+            <div class="px-drawer-inner">
+            <article class="px-card px-card--wide" id="px-card-exo" data-part="exo" hidden
+                     data-name="Exoskeleton" data-blurb="Shared and sensorized: 16 joint encoders, plus an iPhone that localizes the wrist.">
+              <figure class="px-media">
+                <img src="./static/images/parts/exoskeleton_encoders.jpg" width="1889" height="671" decoding="async"
+                     alt="Exoskeleton finger mechanism (left) and thumb mechanism (right), with joint encoders highlighted in blue.">
+                <figcaption>Finger (left) and thumb (right) mechanisms, joint encoders in blue.
+                  <span class="px-key"><i class="px-swatch" style="--s:#d21f1f"></i>encoder reading axis</span>
+                  <span class="px-key"><i class="px-swatch" style="--s:#5aa84a"></i>axis the finger actually rotates about</span>
+                </figcaption>
+              </figure>
+              <div class="px-text">
+                <p class="px-kicker">Shared across every hand</p>
+                <h3>Sensorized exoskeleton</h3>
+                <div class="px-cols">
+                  <div>
+                    <h4>Joint sensing</h4>
+                    <p>
+                      Worn by the operator and left unchanged when the passive hand is replaced. Each finger accommodates
+                      MCP abduction/adduction and flexion plus PIP flexion; the thumb adds CMC, MCP and IP rotation.
+                      Sixteen resistive rotary sensors measure joint angles or linkage rotation relative to the supporting
+                      segment.
+                    </p>
+                  </div>
+                  <div>
+                    <h4>Localization</h4>
+                    <p>
+                      The iPhone on top streams its 6-DoF ARKit pose over USB via Record3D, and a keyed mount fixes the
+                      phone-to-palm transform, so the wrist is localized without a robot arm or external tracking. Pose
+                      samples are matched to the joint trajectory by timestamp and supply the policy’s relative
+                      end-effector poses.
+                    </p>
+                  </div>
+                </div>
+                <ul class="px-facts">
+                  <li><strong>15</strong> operator-side DoF</li>
+                  <li><strong>16</strong> rotary encoders</li>
+                  <li><strong>6-DoF</strong> wrist pose from ARKit</li>
+                  <li><strong>~$120</strong> system, excl. phone &amp; camera</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="px-card px-card--wide" id="px-card-linkage" data-part="linkage" hidden
+                     data-name="Linkage" data-blurb="Embodiment-specific four-bar linkages that carry finger motion to the passive hand.">
+              <div class="px-media-row">
+                <figure class="px-media">
+                  <img src="./static/images/parts/linkage_fourbar.jpg" width="928" height="643" decoding="async"
+                       alt="Two serial four-bar linkage systems: the first (MCP) in green, the second in blue, and the MCP abduction/adduction axis in pink.">
+                  <figcaption>Two serial four-bar linkages transmit MCP and PIP flexion.</figcaption>
+                </figure>
+                <figure class="px-media">
+                  <img src="./static/images/parts/passive_joints.jpg" width="928" height="644" decoding="async"
+                       alt="Revolute joints connecting the linkage components: joints of the first linkage system in green, serial joints of the second in red.">
+                  <figcaption>Revolute joints connecting the linkage components.</figcaption>
+                </figure>
+              </div>
+              <div class="px-text">
+                <p class="px-kicker">Embodiment-specific</p>
+                <h3>Four-bar linkages</h3>
+                <div class="px-cols">
+                  <div>
+                    <h4>Transmission</h4>
+                    <p>
+                      Couple the passive hand to the shared exoskeleton, accommodating MCP flexion, MCP
+                      abduction/adduction and PIP flexion. Following DEXOP, standoffs fix the base separation; the first
+                      coupler connects the two PIP axes and serves as the second linkage’s moving ground, and the second
+                      coupler connects the middle-link mounts.
+                    </p>
+                  </div>
+                  <div>
+                    <h4>Joints</h4>
+                    <p>
+                      Revolute joints on the linkage mounts connect the couplers: those of the first linkage system
+                      (green) and the serial joints of the second (red). A new hand needs only its own coupler dimensions
+                      and mount positions; thumb couplers are designed per embodiment.
+                    </p>
+                  </div>
+                </div>
+                <ul class="px-facts">
+                  <li><strong>2</strong> serial four-bars per finger</li>
+                  <li>New hand = printed parts + fasteners</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="px-card" id="px-card-passive" data-part="passive" hidden
+                     data-name="Passive Hand" data-blurb="A robot-shaped replica with its wrist camera, so collection looks like deployment.">
+              <figure class="px-media px-views">
+                <div class="px-views-grid">
+                  <span></span>
+                  <span class="px-views-col">Robot hand</span>
+                  <span class="px-views-col">Passive hand</span>
+                  <span class="px-views-row">WUJI</span>
+                  <img src="./static/images/parts/wrist_wuji_real.jpg" width="271" height="280" decoding="async"
+                       alt="Wrist-camera view with the real WUJI Hand v1 at deployment.">
+                  <img src="./static/images/parts/wrist_wuji_passive.jpg" width="269" height="280" decoding="async"
+                       alt="Wrist-camera view with the WUJI passive hand during collection.">
+                  <span class="px-views-row">LEAP</span>
+                  <img src="./static/images/parts/wrist_leap_real.jpg" width="268" height="280" decoding="async"
+                       alt="Wrist-camera view with the real LEAP Hand at deployment.">
+                  <img src="./static/images/parts/wrist_leap_passive.jpg" width="272" height="280" decoding="async"
+                       alt="Wrist-camera view with the LEAP passive hand during collection.">
+                </div>
+                <figcaption>Wrist-camera views: robot hand at deployment vs. passive hand during collection.</figcaption>
+              </figure>
+              <div class="px-text">
+                <p class="px-kicker">Interchangeable</p>
+                <h3>Passive hand + wrist camera</h3>
+                <p>
+                  A replica of the target robot hand, derived from its kinematic description and link meshes. It
+                  reproduces the robot’s supported articulation and contact geometry but carries no encoders. A
+                  RealSense D405 below the palm records RGB-D from the viewpoint the robot will have at deployment.
+                </p>
+                <h4>No visual gap</h4>
+                <p>
+                  Because the passive hand looks like the robot hand, collection frames match deployment frames, so
+                  policies train on them directly, with no segmentation, inpainting, or rendered hand replacement.
+                </p>
+                <ul class="px-facts">
+                  <li>RealSense <strong>D405</strong> RGB-D</li>
+                  <li>CAD derived from the robot model</li>
+                </ul>
+              </div>
+            </article>
+            </div>
+          </div>
         </div>
       </div>
-      <br/>
-      <p class="has-text-centered has-text-weight-semibold">Sensing and linkage detail (Fig. 3)</p>
-      <div class="columns is-centered">
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/fig3a_encoder.jpg" alt="Joint encoders" style="border-radius: 8px; width: 100%;">
-          <p class="is-size-7 has-text-grey">(a) Joint encoders</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/fig3b_linkage.jpg" alt="Four-bar linkages" style="border-radius: 8px; width: 100%;">
-          <p class="is-size-7 has-text-grey">(b) Serial 4-bar linkages</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/fig3c_joints.jpg" alt="Revolute joints" style="border-radius: 8px; width: 100%;">
-          <p class="is-size-7 has-text-grey">(c) Revolute joints</p>
-        </div>
-      </div>
-      <br/>
-      <figure class="image" style="width: 70%; margin: 0 auto;">
-        <img src="./static/images/fig4_wrist_views.jpg"
-             alt="Wrist-camera views for Wuji and Leap, real vs passive.">
-        <figcaption class="has-text-centered has-text-grey" style="margin-top: 0.75rem;">
-          Fig. 4 — Matched wrist-camera viewpoints during passive-hand collection and robot deployment.
-        </figcaption>
-      </figure>
     </div>
   </section>
 
@@ -228,6 +340,98 @@
       <figure class="image" style="width: 90%; margin: 0 auto;">
         <img src="./static/images/fig5_user_study.jpg"
              alt="User study photo grid of WUDI task attempts.">
+      </figure>
+    </div>
+  </section>
+
+  <!-- In-the-wild / collection -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Portable Demonstration Collection</h2>
+      <p>
+        WUDI supports robot-free, portable collection after brief familiarization. On LEAP Hand, an expert operator
+        achieved <strong>3.62–7.71×</strong> more successful completions per 5-minute window than vision-based
+        teleoperation on Zipper, Coin, and Lid.
+      </p>
+      <br/>
+      <div class="video-carousel" id="collection-carousel" tabindex="0">
+        <div class="carousel-stage">
+          <button class="carousel-btn carousel-prev" aria-label="Previous video"></button>
+          <div class="carousel-viewport">
+            <div class="carousel-slide active" data-task="In the Wild" data-hand="Portable collection">
+              <div class="carousel-slide-inner">
+                <div class="highlight-video-container">
+                  <video autoplay muted loop playsinline controls width="100%">
+                    <source src="./static/videos/in_the_wild.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-slide" data-task="Cafe" data-hand="Everyday setting">
+              <div class="carousel-slide-inner">
+                <div class="highlight-video-container">
+                  <video autoplay muted loop playsinline controls width="100%">
+                    <source src="./static/videos/cafe_final.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-slide" data-task="Fridge" data-hand="Everyday setting">
+              <div class="carousel-slide-inner">
+                <div class="highlight-video-container">
+                  <video autoplay muted loop playsinline controls width="100%">
+                    <source src="./static/videos/fridge_final.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-next" aria-label="Next video"></button>
+        </div>
+        <p class="carousel-caption">
+          <span class="carousel-task">In the Wild</span><span class="carousel-hand">Portable collection</span>
+        </p>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" aria-label="Show video 1"></button>
+          <button class="carousel-dot" aria-label="Show video 2"></button>
+          <button class="carousel-dot" aria-label="Show video 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reconstruction & workspace -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Reconstruction &amp; Workspace</h2>
+      <p>
+        Mechanism-based joint reconstruction on LEAP recovers passive-hand angles with MAE 1.34°–4.20° (RMSE ≤ 5.50°).
+        Motion-capture validation below; fingertip workspace coverage relative to vision teleoperation is shown in
+        Fig.&nbsp;6.
+      </p>
+      <br/>
+      <p class="has-text-centered has-text-weight-semibold">Motion-capture validation</p>
+      <div class="columns is-centered">
+        <div class="column is-half has-text-centered">
+          <p class="has-text-grey">Index finger</p>
+          <video class="video-zoom" autoplay muted loop playsinline controls width="100%" style="border-radius: 10px;">
+            <source src="./static/videos/mocap_index.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column is-half has-text-centered">
+          <p class="has-text-grey">Thumb</p>
+          <video class="video-zoom" autoplay muted loop playsinline controls width="100%" style="border-radius: 10px;">
+            <source src="./static/videos/mocap_thumb.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <br/>
+      <figure class="image" style="width: 92%; margin: 0 auto;">
+        <img src="./static/images/fig6_workspace.jpg"
+             alt="Fingertip workspace coverage for LEAP and WUJI under WUDI vs vision teleoperation.">
+        <figcaption class="has-text-centered has-text-grey" style="margin-top: 0.75rem;">
+          Fig. 6 — Fingertip workspaces: native, WUDI-feasible, and vision teleoperation.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -347,98 +551,6 @@
     </div>
   </section>
 
-  <!-- Reconstruction & workspace -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Reconstruction &amp; Workspace</h2>
-      <p>
-        Mechanism-based joint reconstruction on LEAP recovers passive-hand angles with MAE 1.34°–4.20° (RMSE ≤ 5.50°).
-        Motion-capture validation below; fingertip workspace coverage relative to vision teleoperation is shown in
-        Fig.&nbsp;6.
-      </p>
-      <br/>
-      <p class="has-text-centered has-text-weight-semibold">Motion-capture validation</p>
-      <div class="columns is-centered">
-        <div class="column is-half has-text-centered">
-          <p class="has-text-grey">Index finger</p>
-          <video class="video-zoom" autoplay muted loop playsinline controls width="100%" style="border-radius: 10px;">
-            <source src="./static/videos/mocap_index.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="column is-half has-text-centered">
-          <p class="has-text-grey">Thumb</p>
-          <video class="video-zoom" autoplay muted loop playsinline controls width="100%" style="border-radius: 10px;">
-            <source src="./static/videos/mocap_thumb.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <br/>
-      <figure class="image" style="width: 92%; margin: 0 auto;">
-        <img src="./static/images/fig6_workspace.jpg"
-             alt="Fingertip workspace coverage for LEAP and WUJI under WUDI vs vision teleoperation.">
-        <figcaption class="has-text-centered has-text-grey" style="margin-top: 0.75rem;">
-          Fig. 6 — Fingertip workspaces: native, WUDI-feasible, and vision teleoperation.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- In-the-wild / collection -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Portable Demonstration Collection</h2>
-      <p>
-        WUDI supports robot-free, portable collection after brief familiarization. On LEAP Hand, an expert operator
-        achieved <strong>3.62–7.71×</strong> more successful completions per 5-minute window than vision-based
-        teleoperation on Zipper, Coin, and Lid.
-      </p>
-      <br/>
-      <div class="video-carousel" id="collection-carousel" tabindex="0">
-        <div class="carousel-stage">
-          <button class="carousel-btn carousel-prev" aria-label="Previous video"></button>
-          <div class="carousel-viewport">
-            <div class="carousel-slide active" data-task="In the Wild" data-hand="Portable collection">
-              <div class="carousel-slide-inner">
-                <div class="highlight-video-container">
-                  <video autoplay muted loop playsinline controls width="100%">
-                    <source src="./static/videos/in_the_wild.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-slide" data-task="Cafe" data-hand="Everyday setting">
-              <div class="carousel-slide-inner">
-                <div class="highlight-video-container">
-                  <video autoplay muted loop playsinline controls width="100%">
-                    <source src="./static/videos/cafe_final.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-slide" data-task="Fridge" data-hand="Everyday setting">
-              <div class="carousel-slide-inner">
-                <div class="highlight-video-container">
-                  <video autoplay muted loop playsinline controls width="100%">
-                    <source src="./static/videos/fridge_final.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="carousel-btn carousel-next" aria-label="Next video"></button>
-        </div>
-        <p class="carousel-caption">
-          <span class="carousel-task">In the Wild</span><span class="carousel-hand">Portable collection</span>
-        </p>
-        <div class="carousel-dots">
-          <button class="carousel-dot active" aria-label="Show video 1"></button>
-          <button class="carousel-dot" aria-label="Show video 2"></button>
-          <button class="carousel-dot" aria-label="Show video 3"></button>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Design extensions -->
   <section class="section generalization-section">
     <div class="container is-max-desktop">
@@ -456,27 +568,31 @@
           Fig. 8 — ROHand · Inspire Hand · Sharpa Wave · XHand 1 · Schunk Hand
         </figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- Interactive 3D model (static/js/model-viewer.js; three.js loads only when this scrolls near view) -->
+  <section class="section model-section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Explore WUDI in 3D</h2>
+      <p>
+        The full LEAP Hand configuration: the shared sensorized exoskeleton with its iPhone mount, the
+        embodiment-specific linkages, and the passive LEAP hand with its wrist camera. Drag to look around.
+      </p>
       <br/>
-      <div class="columns is-multiline is-centered hand-gallery">
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/hands/ROHand.PNG" alt="ROHand" style="border-radius: 8px; width: 100%; background:#111;">
-          <p class="is-size-7">ROHand</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/hands/inspire.PNG" alt="Inspire Hand" style="border-radius: 8px; width: 100%; background:#111;">
-          <p class="is-size-7">Inspire Hand</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/hands/sharpa_aluminium.PNG" alt="Sharpa Wave" style="border-radius: 8px; width: 100%; background:#111;">
-          <p class="is-size-7">Sharpa Wave</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/hands/xhand_white.PNG" alt="XHand" style="border-radius: 8px; width: 100%; background:#111;">
-          <p class="is-size-7">XHand</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <img src="./static/images/hands/schunk.PNG" alt="Schunk Hand" style="border-radius: 8px; width: 100%; background:#111;">
-          <p class="is-size-7">Schunk Hand</p>
+      <div class="model-viewer" data-src="./static/models/wudi_leap.glb">
+        <div class="mv-stage" role="img" aria-label="Interactive 3D model of WUDI configured for LEAP Hand"></div>
+        <div class="mv-status" aria-live="polite">Loading 3D model…<span class="mv-bar"><i></i></span></div>
+        <p class="mv-note" aria-hidden="true">Click the model first, then scroll to zoom</p>
+        <p class="mv-hint"></p>
+        <div class="mv-buttons">
+          <button type="button" class="mv-btn" data-mv="spin" aria-pressed="true" title="Pause rotation" aria-label="Pause rotation">
+            <svg class="mv-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg>
+            <svg class="mv-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+          </button>
+          <button type="button" class="mv-btn" data-mv="reset" title="Reset view" aria-label="Reset view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          </button>
         </div>
       </div>
     </div>

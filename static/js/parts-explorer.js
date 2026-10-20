@@ -1,6 +1,6 @@
 // Interactive component figure (Mechanical Interface section).
-// Hovering a part of either hand greys out the rest of the figure and lights up that part, its
-// label and its arrows; clicking (or tapping) it opens the matching mechanism detail below.
+// Hovering a part of either hand greys out the rest of the figure, lights up that part, and opens
+// its mechanism detail below. Clicking remains available for touch and keyboard interaction.
 // Outlines come from parts-explorer-data.js; the detail cards live in index.html.
 (function () {
   const SVGNS = 'http://www.w3.org/2000/svg';
@@ -77,14 +77,14 @@
     stage.appendChild(svg);
     stage.classList.add('is-ready');
 
-    // "Click a part" nudge, anchored on the left hand's exoskeleton; gone after the first interaction
+    // Interaction nudge, anchored on the left hand's exoskeleton; gone after the first interaction
     const hintAt = DATA.arrows.exo[0].tail;
     const hint = document.createElement('div');
     hint.className = 'px-hint';
     hint.setAttribute('aria-hidden', 'true');
     hint.style.left = `${(hintAt[0] / w) * 100}%`;
     hint.style.top = `${(hintAt[1] / h) * 100}%`;
-    hint.innerHTML = `<span class="px-hint-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l6.5 16 2.3-6.9L19.5 9.5z"/></svg></span>${touchish ? 'Tap' : 'Click'} a part`;
+    hint.innerHTML = `<span class="px-hint-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l6.5 16 2.3-6.9L19.5 9.5z"/></svg></span>${touchish ? 'Tap' : 'Hover'} a part`;
     stage.appendChild(hint);
     let hinted = true;
     function dismissHint() {
@@ -103,8 +103,7 @@
       const card = root.querySelector(`.px-card[data-part="${k}"]`);
       tip.style.setProperty('--c', color(k));
       tip.innerHTML = `<span class="px-tip-title">${card.dataset.name}</span>` +
-        `<span class="px-tip-body">${card.dataset.blurb}</span>` +
-        (selected === k ? '' : '<span class="px-tip-cta">Click to see the mechanism</span>');
+        `<span class="px-tip-body">${card.dataset.blurb}</span>`;
       tip.classList.add('is-on');
     }
     function moveTip(e) {
@@ -131,6 +130,7 @@
       if (k === hovered) return;
       hovered = k;
       if (k) dismissHint();
+      if (k && selected !== k) select(k, false);
       paint();
     }
     function endHover() {
@@ -174,11 +174,11 @@
     svg.addEventListener('pointerleave', () => { clearTimeout(hoverTimer); hovered = null; paint(); hideTip(); });
     svg.addEventListener('click', (e) => {
       const k = partAt(e.target);
-      select(k && k === selected ? null : k, !!k);
+      if (k) select(touchish && k === selected ? null : k, true);
     });
 
     buttons.forEach((b) => {
-      b.addEventListener('click', () => select(b.dataset.part === selected ? null : b.dataset.part, false));
+      b.addEventListener('click', () => select(touchish && b.dataset.part === selected ? null : b.dataset.part, false));
       b.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') setHover(b.dataset.part); });
       b.addEventListener('pointerleave', () => { clearTimeout(hoverTimer); hovered = null; paint(); });
     });

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Order the WUDI Encoder16 board, check the system BOM, and download and flash the WUDI firmware.">
+  <title>Build WUDI Hardware</title>
+  <link rel="icon" type="image/png" sizes="256x256" href="../static/images/wudi-crowned-icon.png">
+  <link rel="apple-touch-icon" href="../static/images/wudi-crowned-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:500,600,700" type="text/css">
+  <link rel="stylesheet" href="./hardware.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Back to the WUDI project page">
+      <img src="../static/images/wudi-crowned-icon.png" alt="" width="28" height="28">
+      <span>WUDI Hardware</span>
+    </a>
+    <nav aria-label="Hardware build steps">
+      <a href="#order">01 · Order PCB</a>
+      <a href="#bom">02 · BOM</a>
+      <a href="#firmware">03 · Firmware</a>
+    </nav>
+    <a class="back-link" href="../">← Project page</a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Build WUDI Hardware</h1>
+      </div>
+    </section>
+
+    <ol class="build-flow">
+      <li class="flow-step" id="order">
+        <div class="flow-marker" aria-hidden="true">01</div>
+        <section>
+          <header class="step-heading">
+            <div>
+              <h2>Order assembled boards from JLCPCB</h2>
+            </div>
+            <div class="order-actions">
+              <a class="button button--primary" href="./downloads/WUDI_Encoder16.zip" download>PCB package · ZIP ↓</a>
+              <a class="button button--secondary" href="https://jlcpcb.com/" target="_blank" rel="noopener">Go to JLCPCB ↗</a>
+            </div>
+          </header>
+          <p class="pcb-description">
+            Based on the open-source DexUMI electronics design
+            <a href="#reference-1" aria-label="See DexUMI citation">[1]</a>, our 75 × 75&nbsp;mm mainboard keeps the same STM32F042K6T6 and dual-ADS1256 architecture,
+            exposes all 16 encoder channels, and removes unused circuitry.
+          </p>
+          <ol class="order-guide">
+            <li>
+              <div class="guide-copy"><b>1</b><span><strong>Upload Gerber</strong>Choose Standard PCB/PCBA and upload <code>Gerber.zip</code>.</span></div>
+              <img src="./build_pcb/step1.webp" width="2265" height="1034" loading="lazy" decoding="async" alt="JLCPCB Standard PCB/PCBA page with the Add gerber file control highlighted.">
+            </li>
+            <li>
+              <div class="guide-copy"><b>2</b><span><strong>Enable assembly</strong>Turn on PCB Assembly; select Standard and Both Sides.</span></div>
+              <img src="./build_pcb/step2.webp" width="2266" height="1124" loading="lazy" decoding="async" alt="JLCPCB assembly settings with Standard PCBA and Both Sides highlighted.">
+            </li>
+            <li>
+              <div class="guide-copy"><b>3</b><span><strong>Upload BOM + CPL</strong>Add <code>BOM.csv</code>, then add <code>CPL.csv</code> for placement.</span></div>
+              <img src="./build_pcb/step3.webp" width="2303" height="782" loading="lazy" decoding="async" alt="JLCPCB page showing BOM.csv uploaded and the Add CPL File control.">
+            </li>
+            <li>
+              <div class="guide-copy"><b>4</b><span><strong>Check placement</strong>Inspect both sides, rotations, pin 1, connectors, and unplaced parts.</span></div>
+              <img src="./build_pcb/step4.webp" width="2292" height="1418" loading="lazy" decoding="async" alt="JLCPCB component placement preview for the WUDI Encoder16 board.">
+            </li>
+          </ol>
+        </section>
+      </li>
+
+      <li class="flow-step" id="bom">
+        <div class="flow-marker" aria-hidden="true">02</div>
+        <section>
+          <header class="step-heading">
+            <div>
+              <h2>Build the hardware</h2>
+            </div>
+          </header>
+          <div class="bom-list">
+            <details>
+              <summary>
+                <span><b>Mechanical + capture</b><small>Printed mechanism, 16 encoders, D405, fasteners, and consumables</small></span>
+                <span class="expand-label">View BOM</span>
+              </summary>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Part</th><th>Qty</th><th>Use / note</th></tr></thead>
+                  <tbody>
+                    <tr><td>WUDI 3D-printed exoskeleton parts</td><td>1 set</td><td>PLA-CF; print quantities follow the selected hand configuration</td></tr>
+                    <tr><td>RDC506018A encoder</td><td>16</td><td>Joint sensing</td></tr>
+                    <tr><td>XH 2.54 mm 3-pin wire, 50 cm</td><td>16</td><td>Encoder leads</td></tr>
+                    <tr><td>M1 × 8 mm screws + M1 hex nuts</td><td>As required</td><td>Encoder and small-part fastening</td></tr>
+                    <tr><td>M2 screws, 6 / 12 / 16 mm</td><td>Assorted</td><td>Linkage assembly</td></tr>
+                    <tr><td>M2 lock nuts</td><td>Assorted</td><td>Linkage assembly</td></tr>
+                    <tr><td>M3 shoulder screws, assorted lengths</td><td>Assorted</td><td>Finger pivots</td></tr>
+                    <tr><td>M3 lock nuts</td><td>Assorted</td><td>Finger pivots</td></tr>
+                    <tr><td>Finger sleeves</td><td>10</td><td>Wearable interface</td></tr>
+                    <tr><td>3M TB641 gripping material</td><td>1.5 ft</td><td>Grip surface</td></tr>
+                    <tr><td>Intel RealSense D405</td><td>1</td><td>Wrist-mounted RGB-D camera</td></tr>
+                    <tr><td>USB-C to USB-A cable, 10 ft</td><td>1</td><td>D405 data connection</td></tr>
+                    <tr><td>Loctite 242, UV resin, super glue, lubricant grease</td><td>1 each</td><td>Assembly consumables</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+            <details>
+              <summary>
+                <span><b>Electronics + tools</b><small>WUDI board, MCU, ADC modules, programmer, power, and host link</small></span>
+                <span class="expand-label">View BOM</span>
+              </summary>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Part</th><th>Qty</th><th>Use / note</th></tr></thead>
+                  <tbody>
+                    <tr><td>WUDI Encoder16 R1 assembled mainboard</td><td>1</td><td>Order with the package in Step 01</td></tr>
+                    <tr><td>STM32F042K6T6 core board</td><td>1</td><td>Same MCU module used by DexUMI</td></tr>
+                    <tr><td>ADS1256 module</td><td>2</td><td>16 analog input channels total</td></tr>
+                    <tr><td>USB-to-TTL module, 3.3 V logic</td><td>1</td><td>Runtime serial connection to the PC</td></tr>
+                    <tr><td>ST-Link V2 programmer</td><td>1</td><td>Firmware flashing over SWD</td></tr>
+                    <tr><td>5.0 V / 1.0 A DC power supply</td><td>1</td><td>Mainboard power</td></tr>
+                    <tr><td>XT30 female connector with wire</td><td>1</td><td>Power input</td></tr>
+                    <tr><td>Dupont male-to-female wires</td><td>3+</td><td>Programming and bench connections</td></tr>
+                    <tr><td>Automotive cloth tape</td><td>1 roll</td><td>Cable management</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+          <p class="bom-note">This is a temporary system BOM. Verify mechanical fastener lengths and quantities against the final CAD configuration before purchasing.</p>
+        </section>
+      </li>
+
+      <li class="flow-step" id="firmware">
+        <div class="flow-marker" aria-hidden="true">03</div>
+        <section>
+          <header class="step-heading">
+            <div>
+              <h2>Firmware and PC connection</h2>
+            </div>
+            <div class="firmware-actions">
+              <a class="button button--primary" href="./downloads/WUDI_Encoder16_Firmware.zip" download>Firmware source · ZIP ↓</a>
+              <a class="button button--primary" href="./downloads/WUDI_Encoder16.hex" download>HEX ↓</a>
+              <a class="button button--primary" href="./downloads/WUDI_Encoder16.bin" download>BIN ↓</a>
+            </div>
+          </header>
+          <div class="firmware-grid">
+            <article>
+              <h3><span>3A</span> Flash the STM32</h3>
+              <p>WUDI keeps the same STM32F042K6T6 and dual-ADS1256 modules as DexUMI; only the carrier mainboard is replaced.</p>
+              <ol>
+                <li>Install OpenOCD: <code>sudo apt-get install openocd</code>.</li>
+                <li>With target power off, connect ST-Link V2: <strong>VTref → 3.3 V</strong>, <strong>GND → GND</strong>, <strong>SWDIO → PA13</strong>, and <strong>SWCLK → PA14</strong>. NRST is recommended.</li>
+                <li>Power the board, place <code>WUDI_Encoder16.hex</code> in the current directory, and run:</li>
+              </ol>
+              <pre><code>openocd -f interface/stlink-v2.cfg \
+  -f target/stm32f0x.cfg \
+  -c "program WUDI_Encoder16.hex verify reset exit"</code></pre>
+            </article>
+
+            <article>
+              <h3><span>3B</span> Connect the board to the PC</h3>
+              <ol>
+                <li>Insert the STM32 core board in the top socket and both ADS1256 modules in the lower sockets. Confirm orientation before applying power.</li>
+                <li>Connect regulated <strong>5.0 V / 1.0 A</strong> through the XT30 female lead, then turn on the board switch.</li>
+                <li>Connect a <strong>3.3 V USB-to-TTL</strong> adapter: board PB6 / USART1_TX → adapter RX, board PB7 / USART1_RX → adapter TX, and GND → GND.</li>
+                <li>Open the serial port at <strong>921600 baud, 8N1</strong>. WUDI firmware sends all sixteen ADS1256 inputs in fixed 72-byte packets.</li>
+              </ol>
+              <p class="safety"><strong>Do not use a 5 V UART signal.</strong> Disconnect ST-Link after flashing unless the shared-ground debug setup has been reviewed.</p>
+            </article>
+          </div>
+
+          <p class="checksum"><strong>BIN SHA-256</strong><code>0ddb9dcba86dc33f97ae636f923d219fb492d62f53ba763dddd8e0c77025e3d9</code></p>
+        </section>
+      </li>
+    </ol>
+  </main>
+
+  <footer>
+    <p id="reference-1"><strong>[1]</strong> Xu, M., Zhang, H., Hou, Y., Xu, Z., Fan, L., Veloso, M., &amp; Song, S. “DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation.” CoRL 2025.</p>
+    <a href="../">Return to the WUDI project page</a>
+  </footer>
+</body>
+</html>

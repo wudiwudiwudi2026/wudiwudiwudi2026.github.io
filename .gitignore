@@ -7,3 +7,7 @@ WUDI_explainer_8slides_v2.pptx
 WUDI_explainer_9slides_animated.pptx
 
 .DS_Store
+
+# Local development dependencies and build output
+node_modules/
+dist/

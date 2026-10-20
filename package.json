@@ -1,0 +1,14 @@
+{
+  "name": "wudiwudiwudi2026-github-io",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
+  },
+  "devDependencies": {
+    "three": "0.169.0",
+    "vite": "^7.1.12"
+  }
+}

@@ -48,8 +48,8 @@
   <div class="hero-overlay"></div>
   <div class="hero-bottom">
     <h1 class="hero-title">
-      WUDI<br>
-      <span class="hero-subtitle">From Hand to Hand: A Shared Wearable Interface and Functional Benchmark for Dexterous Manipulation</span>
+      <img class="hero-brand-icon" src="./static/images/wudi-crowned-icon.png" alt="WUDI" width="256" height="256">
+      <span class="hero-subtitle">Wearable, Unified Interface for Dexterous manipulation</span>
     </h1>
   </div>
   <button class="scroll-indicator" type="button" aria-label="Scroll to content">&darr;</button>
@@ -240,12 +240,20 @@
     </div>
   </section>
 
-  <!-- Combine the former abstract, overview video, and method figure into one dense section. -->
+  <!-- Video first, then title, then figure + abstract. -->
   <section class="section" id="method">
     <div class="container site-container">
+      <div class="method-video">
+        <video controls preload="metadata" playsinline poster="./static/images/hero-poster.webp">
+          <source src="./static/videos/web/intro.mp4" type="video/mp4">
+        </video>
+        <p class="video-sound-note"><span aria-hidden="true">🔊</span> This video includes audio.</p>
+      </div>
+
       <div class="section-heading">
         <h2 class="title is-3">Method Overview</h2>
       </div>
+
       <div class="method-layout">
         <figure class="method-figure">
           <img src="./static/images/fig1_overview.webp" loading="lazy" decoding="async"
@@ -253,10 +261,6 @@
           <figcaption>Shared sensing across WUJI Hand v1 and LEAP Hand, from collection to autonomous execution.</figcaption>
         </figure>
         <div class="method-copy">
-          <video controls preload="metadata" playsinline poster="./static/images/hero-poster.webp">
-            <source src="./static/videos/web/intro.mp4" type="video/mp4">
-          </video>
-          <p class="video-sound-note"><span aria-hidden="true">🔊</span> This video includes audio.</p>
           <p>
             <strong class="wudi-rainbow" aria-label="WUDI"><span aria-hidden="true">W</span><span aria-hidden="true">U</span><span aria-hidden="true">D</span><span aria-hidden="true">I</span></strong>
             (<span class="wudi-expansion"><span class="letter-w">W</span>earable, <span class="letter-u">U</span>nified <span class="letter-i">I</span>nterface for <span class="letter-d">D</span>exterous manipulation</span>) couples a shared sensorized exoskeleton to interchangeable passive hands through

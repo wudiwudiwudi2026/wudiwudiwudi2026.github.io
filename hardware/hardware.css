@@ -112,6 +112,8 @@ th, td { padding: 0.65rem 0.85rem; border-bottom: 1px solid #e7ebf1; text-align:
 th { background: var(--panel); color: #46546b; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
 th:nth-child(2), td:nth-child(2) { width: 110px; white-space: nowrap; }
 td:last-child { color: var(--muted); }
+.bom-category th { padding-top: 0.8rem; padding-bottom: 0.55rem; background: #eaf0fa; color: var(--blue-dark); font-size: 0.85rem; }
+.table-wrap td:first-child a { font-weight: 700; }
 .bom-note { margin: 0.7rem 0 0; color: var(--muted); font-size: 0.875rem; }
 
 .order-actions, .firmware-actions { justify-content: flex-end; }

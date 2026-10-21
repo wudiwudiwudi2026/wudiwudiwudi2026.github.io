@@ -36,6 +36,7 @@
     }
   </script>
   <script type="module" src="./static/js/model-viewer.js"></script>
+  <script src="./static/js/model-carousel.js"></script>
 </head>
 <body>
 
@@ -95,7 +96,12 @@
         xArm&nbsp;6.
       </p>
 
-      <div class="policy-paired-rollouts">
+      <div class="policy-view-switch" role="group" aria-label="Choose policy video type">
+        <button class="is-active" type="button" data-policy-view="rollouts" aria-pressed="true">Policy rollouts</button>
+        <button type="button" data-policy-view="collection" aria-pressed="false">Demonstration collection</button>
+      </div>
+
+      <div class="policy-paired-rollouts" data-policy-panel="rollouts">
         <section class="policy-hand-rollouts" aria-labelledby="wuji-policy-title">
           <h3 id="wuji-policy-title">WUJI Hand v1</h3>
           <div class="policy-task-grid">
@@ -149,6 +155,43 @@
           </div>
         </section>
       </div>
+
+      <div class="policy-paired-rollouts policy-collection-view" data-policy-panel="collection" hidden>
+        <section class="policy-hand-rollouts" aria-labelledby="wuji-collection-title">
+          <h3 id="wuji-collection-title">WUJI Hand v1</h3>
+          <div class="policy-task-grid">
+            <article class="policy-task-pair">
+              <header><strong>Zipper</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/wuji_exo_zip.mp4" type="video/mp4"></video></div>
+            </article>
+            <article class="policy-task-pair">
+              <header><strong>Lid</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/wuji_exo_lid.mp4" type="video/mp4"></video></div>
+            </article>
+            <article class="policy-task-pair">
+              <header><strong>Coin</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/wuji_exo_coin.mp4" type="video/mp4"></video></div>
+            </article>
+          </div>
+        </section>
+        <section class="policy-hand-rollouts" aria-labelledby="leap-collection-title">
+          <h3 id="leap-collection-title">LEAP Hand</h3>
+          <div class="policy-task-grid">
+            <article class="policy-task-pair">
+              <header><strong>Zipper</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/LEAP_exo_zip.mp4" type="video/mp4"></video></div>
+            </article>
+            <article class="policy-task-pair">
+              <header><strong>Lid</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/wuji_exo_lid.mp4" type="video/mp4"></video></div>
+            </article>
+            <article class="policy-task-pair">
+              <header><strong>Coin</strong><span>Teleoperation</span></header>
+              <div class="highlight-video-container"><video data-autoplay muted loop playsinline controls preload="none"><source src="./static/videos/policy_collection/web/LEAP_exo_coin.mp4" type="video/mp4"></video></div>
+            </article>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 
@@ -195,9 +238,10 @@
           <figcaption>Shared sensing across WUJI Hand v1 and LEAP Hand, from collection to autonomous execution.</figcaption>
         </figure>
         <div class="method-copy">
-          <video controls preload="none" poster="./static/images/hero-poster.webp">
+          <video controls preload="metadata" playsinline poster="./static/images/hero-poster.webp">
             <source src="./static/videos/web/intro.mp4" type="video/mp4">
           </video>
+          <p class="video-sound-note"><span aria-hidden="true">🔊</span> This video includes audio.</p>
           <p>
             <strong class="wudi-rainbow" aria-label="WUDI"><span aria-hidden="true">W</span><span aria-hidden="true">U</span><span aria-hidden="true">D</span><span aria-hidden="true">I</span></strong>
             (<span class="wudi-expansion"><span class="letter-w">W</span>earable, <span class="letter-u">U</span>nified <span class="letter-i">I</span>nterface for <span class="letter-d">D</span>exterous manipulation</span>) couples a shared sensorized exoskeleton to interchangeable passive hands through
@@ -404,11 +448,10 @@
           <h2 class="title is-3">Explore &amp; Extend WUDI</h2>
         </div>
         <p class="section-lede">
-          Inspect the complete LEAP Hand configuration in 3D, then see how the same shared exoskeleton extends to five
-          additional hands through embodiment-specific couplers and mounts.
+          Inspect how the shared WUDI exoskeleton adapts to six robot hands through embodiment-specific couplers and mounts.
         </p>
       </div>
-      <div class="explore-grid">
+      <div class="explore-grid" data-model-carousel>
         <div class="model-viewer" data-src="./static/models/wudi_leap.glb">
           <div class="mv-stage" role="img" aria-label="Interactive 3D model of WUDI configured for LEAP Hand"></div>
           <div class="mv-status" aria-live="polite">Loading 3D model…<span class="mv-bar"><i></i></span></div>
@@ -425,19 +468,22 @@
           </div>
         </div>
         <article class="extension-card">
-          <div>
-            <p class="section-kicker">Beyond WUJI + LEAP</p>
-            <h3>Five additional hand designs</h3>
-            <p>
-              CAD and simulation-verified designs show that adaptation only requires new coupler dimensions and mount
-              adjustments. All seven designs will be released as open-source hardware.
-            </p>
+          <div class="model-carousel-heading">
+            <div>
+              <span class="model-verify-badge is-real" data-model-verification>Real-world verified</span>
+              <h3 data-model-name>LEAP Hand</h3>
+            </div>
+            <span class="model-carousel-count" data-model-count>1 / 6</span>
           </div>
-          <figure>
-            <img src="./static/images/fig8_designs.webp" loading="lazy" decoding="async"
-                 alt="ROHand, Inspire Hand, Sharpa Wave, XHand 1, and Schunk Hand CAD designs.">
-            <figcaption>ROHand · Inspire · Sharpa Wave · XHand 1 · Schunk</figcaption>
+          <figure class="model-render">
+            <img src="./static/images/extended/leap.webp" loading="lazy" decoding="async"
+                 alt="Rendered WUDI configuration for LEAP Hand" data-model-render>
           </figure>
+          <div class="model-carousel-controls" aria-label="Choose a robot-hand model">
+            <button type="button" data-model-direction="previous" aria-label="Previous hand model">←</button>
+            <div class="model-carousel-dots" data-model-dots aria-hidden="true"></div>
+            <button type="button" data-model-direction="next" aria-label="Next hand model">→</button>
+          </div>
         </article>
       </div>
     </div>

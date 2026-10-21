@@ -21,6 +21,12 @@ function init(root) {
   };
 
   let started = false;
+  let loadCurrentModel = null;
+  root.addEventListener('modelchange', ({ detail }) => {
+    if (!detail?.src) return;
+    root.dataset.src = detail.src;
+    if (loadCurrentModel) loadCurrentModel(detail.src);
+  });
   const near = new IntersectionObserver((entries) => {
     if (started || !entries.some((e) => e.isIntersecting)) return;
     started = true;
@@ -128,19 +134,10 @@ function init(root) {
     btnSpin && btnSpin.addEventListener('click', () => setSpin(!controls.autoRotate));
 
     // ---------- model ----------
-    setStatus('Loading 3D model…', 0);
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-    const gltf = await new Promise((resolve, reject) => loader.load(root.dataset.src, resolve, (e) => {
-      if (e.lengthComputable) setStatus('Loading 3D model…', Math.round((e.loaded / e.total) * 100));
-    }, reject));
-    const model = gltf.scene;
-    model.rotation.x = -Math.PI / 2;   // the CAD export is Z-up; three.js is Y-up
-    model.updateMatrixWorld(true);
-    const box = new THREE.Box3().setFromObject(model);
-    model.position.sub(box.getCenter(new THREE.Vector3()));
-    scene.add(model);
-
-    const radius = box.getBoundingSphere(new THREE.Sphere()).radius;
+    let model = null;
+    let radius = 1;
+    let loadToken = 0;
     const homeDir = new THREE.Vector3(0.62, 0.34, 0.71).normalize();
     // fit the bounding sphere to the narrower of the two fields of view (portrait phones are width-bound)
     function homeDist() {
@@ -161,11 +158,55 @@ function init(root) {
     let moved = false;
     controls.addEventListener('start', () => { moved = true; });
     new ResizeObserver(() => { if (!moved) reset(); }).observe(stage);
-    resize();
-    reset();
 
-    root.classList.add('is-ready');
-    wake();
+    const disposeModel = (object) => {
+      object.traverse((child) => {
+        child.geometry?.dispose();
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
+        materials.filter(Boolean).forEach((material) => material.dispose());
+      });
+      scene.remove(object);
+    };
+
+    loadCurrentModel = async (src) => {
+      const token = ++loadToken;
+      root.classList.remove('is-ready', 'is-error');
+      setStatus('Loading 3D model…', 0);
+      try {
+        const gltf = await new Promise((resolve, reject) => loader.load(src, resolve, (e) => {
+          if (token === loadToken && e.lengthComputable) {
+            setStatus('Loading 3D model…', Math.round((e.loaded / e.total) * 100));
+          }
+        }, reject));
+        if (token !== loadToken) {
+          disposeModel(gltf.scene);
+          return;
+        }
+        if (model) disposeModel(model);
+        model = gltf.scene;
+        model.rotation.x = -Math.PI / 2;   // the CAD exports are Z-up; three.js is Y-up
+        model.updateMatrixWorld(true);
+        const box = new THREE.Box3().setFromObject(model);
+        model.position.sub(box.getCenter(new THREE.Vector3()));
+        scene.add(model);
+        radius = box.getBoundingSphere(new THREE.Sphere()).radius;
+        controls.minDistance = radius * 0.6;
+        controls.maxDistance = homeDist() * 3;
+        moved = false;
+        resize();
+        reset();
+        root.classList.add('is-ready');
+        wake();
+      } catch (error) {
+        if (token !== loadToken) return;
+        console.error(error);
+        setStatus('Could not load the 3D model.', null);
+        root.classList.add('is-error');
+      }
+    };
+
+    resize();
+    await loadCurrentModel(root.dataset.src);
   }
 }
 

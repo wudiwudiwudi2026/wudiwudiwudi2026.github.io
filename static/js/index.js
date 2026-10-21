@@ -50,4 +50,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { passive: true });
   updateSectionNav();
+
+  const policyButtons = Array.from(document.querySelectorAll('[data-policy-view]'));
+  const policyPanels = Array.from(document.querySelectorAll('[data-policy-panel]'));
+  policyButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedView = button.dataset.policyView;
+      policyButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      policyPanels.forEach((panel) => {
+        const active = panel.dataset.policyPanel === selectedView;
+        panel.hidden = !active;
+        panel.querySelectorAll('video').forEach((video) => {
+          if (!active) {
+            video.pause();
+          } else {
+            startVideo(video);
+          }
+        });
+      });
+    });
+  });
 });

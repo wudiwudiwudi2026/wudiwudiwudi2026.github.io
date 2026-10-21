@@ -70,7 +70,7 @@ body {
 .hero-brand-icon {
   display: block;
   flex: 0 0 auto;
-  width: clamp(7rem, 14vw, 12rem);
+  width: clamp(10rem, 22vw, 18rem);
   height: auto;
   margin: 0;
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
@@ -1402,7 +1402,7 @@ body {
 }
 
 .hero-brand-icon {
-  width: clamp(7rem, 12vw, 10.5rem);
+  width: clamp(12rem, 24vw, 20rem);
 }
 
 .hero-subtitle {
@@ -2682,7 +2682,7 @@ body {
   }
 
   .hero-brand-icon {
-    width: clamp(5rem, 22vw, 7rem);
+    width: clamp(8rem, 36vw, 12rem);
   }
 
   .hero-title {

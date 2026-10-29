@@ -49,7 +49,7 @@ body {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   display: flex;
   align-items: flex-end;
-  padding: 0 24px 40px;
+  padding: 0 40px 40px 60px;
   box-sizing: border-box;
   z-index: 2;
   pointer-events: none;
@@ -1392,8 +1392,15 @@ body {
 }
 
 .hero-splash {
-  height: min(82vh, 820px);
-  min-height: 560px;
+  height: 100vh;
+  height: 100dvh;
+}
+
+@media screen and (min-width: 1100px) {
+  .hero-splash {
+    height: calc(100vh / 0.85);
+    height: calc(100dvh / 0.85);
+  }
 }
 
 .hero-title {
@@ -1402,7 +1409,7 @@ body {
 }
 
 .hero-brand-icon {
-  width: clamp(12rem, 24vw, 20rem);
+  width: clamp(8.4rem, 16.8vw, 14rem);
 }
 
 .hero-subtitle {
@@ -1444,6 +1451,10 @@ body {
   justify-content: center;
   gap: 0.65rem;
   margin-top: 1.5rem;
+}
+
+.publication-actions-slot {
+  min-height: 3.55rem;
 }
 
 .publication-action {
@@ -1973,30 +1984,44 @@ body {
 
 .policy-view-switch {
   display: inline-flex;
-  gap: 0.25rem;
-  margin: 0.9rem 0 1rem;
-  padding: 0.25rem;
-  border: 1px solid #cfdaea;
-  border-radius: 10px;
-  background: #eef3f9;
+  gap: 0.35rem;
+  margin: 1rem 0 1.15rem;
+  padding: 0.35rem;
+  border: 2px solid #b8c9e5;
+  border-radius: 13px;
+  background: #e7eef9;
+  box-shadow: 0 8px 22px -18px rgba(24, 60, 120, 0.8);
 }
 
 .policy-view-switch button {
-  padding: 0.52rem 0.85rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.15rem;
   border: 0;
-  border-radius: 7px;
+  border-radius: 9px;
   background: transparent;
-  color: #536078;
+  color: #44536d;
   font: inherit;
-  font-size: 0.8rem;
-  font-weight: 750;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
   cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .policy-view-switch button.is-active {
-  background: #fff;
+  background: var(--site-blue);
+  color: #fff;
+  box-shadow: 0 5px 14px -8px rgba(0, 47, 167, 0.9);
+}
+
+.policy-view-switch button:not(.is-active):hover {
+  background: rgba(255, 255, 255, 0.72);
   color: var(--site-blue);
-  box-shadow: 0 1px 4px rgb(33 58 93 / 14%);
+}
+
+.policy-view-switch button:focus-visible {
+  outline: 3px solid rgba(47, 111, 222, 0.28);
+  outline-offset: 2px;
 }
 
 .policy-view-switch + .policy-paired-rollouts {
@@ -2022,6 +2047,17 @@ body {
 }
 
 @media screen and (max-width: 760px) {
+  .policy-view-switch {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .policy-view-switch button {
+    padding: 0.65rem 0.55rem;
+    font-size: 0.9rem;
+  }
+
   .policy-paired-rollouts {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.25rem;
@@ -2115,13 +2151,22 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .method-figure,
 .method-copy {
   min-width: 0;
   margin: 0;
+}
+
+.method-figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.method-copy {
+  display: flex;
 }
 
 .method-figure img,
@@ -2133,35 +2178,34 @@ body {
 }
 
 .method-figure figcaption,
-.method-copy > p,
 .abstract-details {
   margin-top: 0.65rem;
 }
 
-.method-copy > p {
-  color: #465166;
-  font-size: 0.98rem;
-  line-height: 1.5;
-}
-
 .abstract-details {
+  display: flex;
+  width: 100%;
+  margin-top: 0;
+  padding: 1rem 1.05rem;
   border-top: 1px solid var(--site-line);
   border-bottom: 1px solid var(--site-line);
-}
-
-.abstract-details summary {
-  padding: 0.7rem 0;
-  color: var(--site-blue);
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
+  background: #f8faff;
 }
 
 .abstract-details .content {
-  padding-bottom: 0.8rem;
+  align-self: center;
+  margin: 0;
+  padding: 0;
   color: #4f596b;
   font-size: 0.92rem;
   line-height: 1.5;
+}
+
+.abstract-details h3 {
+  margin: 0 0 0.55rem;
+  color: var(--site-ink);
+  font-size: 1rem;
+  font-weight: 800;
 }
 
 #hardware .parts-explorer {
@@ -2677,12 +2721,12 @@ body {
 
 @media screen and (max-width: 680px) {
   .hero-splash {
-    height: 76svh;
-    min-height: 500px;
+    height: 100vh;
+    height: 100dvh;
   }
 
   .hero-brand-icon {
-    width: clamp(8rem, 36vw, 12rem);
+    width: clamp(5.6rem, 25.2vw, 8.4rem);
   }
 
   .hero-title {

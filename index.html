@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="WUDI: A Wearable, Unified Interface for Dexterous manipulation — shared sensorized exoskeleton with interchangeable passive hands.">
+        content="WUDI: A Wearable, Unified Dexterous Interface — shared sensorized exoskeleton with interchangeable passive hands.">
   <meta name="keywords" content="WUDI, dexterous manipulation, wearable interface, OTHER benchmark, robotics, imitation learning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WUDI — From Hand to Hand</title>
@@ -40,17 +40,12 @@
 </head>
 <body>
 
-<header class="hero-splash" id="hero">
+<header class="hero-splash" id="hero" aria-label="WUDI project video">
   <video id="bg-video" autoplay muted playsinline loop preload="auto"
          poster="./static/images/policy-poster.jpg">
     <source src="./static/videos/policy_final.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-  <div class="hero-bottom">
-    <h1 class="hero-title">
-      <img class="hero-brand-icon" src="./static/images/wudi-crowned-icon.png" alt="WUDI" width="256" height="256">
-    </h1>
-  </div>
   <button class="scroll-indicator" type="button" aria-label="Scroll to content">&darr;</button>
 </header>
 
@@ -65,6 +60,7 @@
             Under review · ICRA 2027
           </span>
         </div>
+        <div class="publication-actions-slot">
         <nav class="publication-actions" aria-label="Project resources">
           <a class="publication-action" href="./WUDI_ICRA27.pdf" target="_blank" rel="noopener" title="Read the paper (PDF)">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg>
@@ -74,7 +70,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3M10 10h4v4h-4z"/></svg>
             <span>Hardware</span>
           </a>
-          <a class="publication-action" href="https://github.com/wudiwudiwudi2026/WUDI" target="_blank" rel="noopener" title="Open the WUDI code repository">
+          <a class="publication-action" href="https://github.com/wudiwudiwudi2026/WUDI" target="_blank" rel="noopener" title="View the WUDI code on GitHub">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>
             <span>Code</span>
           </a>
@@ -83,6 +79,7 @@
             <span>arXiv</span>
           </span>
         </nav>
+        </div>
       </div>
     </div>
   </div>
@@ -217,7 +214,8 @@
           <h2 class="title is-3"><span class="wudi-rainbow" aria-label="WUDI"><span aria-hidden="true">W</span><span aria-hidden="true">U</span><span aria-hidden="true">D</span><span aria-hidden="true">I</span></span></h2>
         </div>
         <p class="section-lede">
-          WUDI supports collection in everyday environments after brief familiarization. On LEAP Hand, an expert
+          <strong class="wudi-rainbow" aria-label="WUDI"><span aria-hidden="true">W</span><span aria-hidden="true">U</span><span aria-hidden="true">D</span><span aria-hidden="true">I</span></strong>
+          (<span class="wudi-expansion"><span class="letter-w">W</span>earable, <span class="letter-u">U</span>nified <span class="letter-d">D</span>exterous <span class="letter-i">I</span>nterface</span>) supports collection in everyday environments after brief familiarization. On LEAP Hand, an expert
           operator achieves <strong>3.62–7.71×</strong> more successful completions per five-minute window than
           vision-based teleoperation on Zipper, Coin, and Lid.
         </p>
@@ -260,20 +258,14 @@
           <figcaption>Shared sensing across WUJI Hand v1 and LEAP Hand, from collection to autonomous execution.</figcaption>
         </figure>
         <div class="method-copy">
-          <p>
-            <strong class="wudi-rainbow" aria-label="WUDI"><span aria-hidden="true">W</span><span aria-hidden="true">U</span><span aria-hidden="true">D</span><span aria-hidden="true">I</span></strong>
-            (<span class="wudi-expansion"><span class="letter-w">W</span>earable, <span class="letter-u">U</span>nified <span class="letter-i">I</span>nterface for <span class="letter-d">D</span>exterous manipulation</span>) couples a shared sensorized exoskeleton to interchangeable passive hands through
-            embodiment-specific linkages. The passive hand reproduces the target’s articulation and contact geometry;
-            all encoders and wiring remain on the reusable exoskeleton.
-          </p>
-          <details class="abstract-details">
-            <summary>Read the abstract</summary>
+          <div class="abstract-details">
             <div class="content">
+              <h3>Abstract</h3>
               <p>
                 Collecting demonstrations for dexterous manipulation is difficult to scale across robot hands with
                 different kinematics and contact geometry. Existing interfaces often require embodiment-specific sensing
                 hardware, motion retargeting, or visual correction. We present <strong>WUDI</strong>, a
-                <em>W</em>earable, <em>U</em>nified <em>I</em>nterface for <em>D</em>exterous manipulation that separates
+                <em>W</em>earable, <em>U</em>nified <em>D</em>exterous <em>I</em>nterface that separates
                 a shared sensorized exoskeleton from interchangeable passive hands and linkages. This design reuses the
                 sensing hardware across embodiments and supports robot-free demonstration collection without visual
                 correction within the supported workspace. We evaluate demonstration collection and policy learning with
@@ -285,7 +277,7 @@
                 completions per collection window than a vision-based teleoperation baseline.
               </p>
             </div>
-          </details>
+          </div>
         </div>
       </div>
     </div>
@@ -517,7 +509,7 @@
         <p class="section-lede">
           Mechanism-based reconstruction on LEAP recovers passive-hand joint angles with MAE 1.34°–4.20° and
           RMSE ≤ 5.50°. Motion capture validates the reconstruction; workspace bars compare WUDI with
-          <strong>Vision teleop</strong>.
+          Vision teleop.
         </p>
       </div>
       <div class="validation-layout">
@@ -653,7 +645,7 @@
     <a href="https://wudiwudiwudi2026.github.io/">wudiwudiwudi2026.github.io</a>
   </p>
   <p class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
-    WUDI — Wearable, Unified Interface for Dexterous manipulation
+    WUDI — Wearable, Unified Dexterous Interface
   </p>
 </footer>
 

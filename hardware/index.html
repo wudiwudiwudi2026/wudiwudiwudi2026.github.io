@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Order the WUDI Encoder16 board, check the system BOM, and download and flash the WUDI firmware.">
+  <meta name="description" content="Order the WUDI Encoder16 board, source the system BOM, print and assemble the hardware, and flash the WUDI firmware.">
   <title>Build WUDI Hardware</title>
   <link rel="icon" type="image/png" sizes="256x256" href="../static/images/wudi-crowned-icon.png">
   <link rel="apple-touch-icon" href="../static/images/wudi-crowned-icon.png">
@@ -19,7 +19,8 @@
     <nav aria-label="Hardware build steps">
       <a href="#order">01 · Order PCB</a>
       <a href="#bom">02 · BOM</a>
-      <a href="#firmware">03 · Firmware</a>
+      <a href="#print-assemble">03 · Print &amp; assemble</a>
+      <a href="#firmware">04 · Firmware</a>
     </nav>
     <a class="back-link" href="../">← Project page</a>
   </header>
@@ -90,8 +91,12 @@
                   <tbody>
                     <tr class="bom-category"><th colspan="3">Mechanical hardware</th></tr>
                     <tr>
-                      <td><a href="https://us.store.bambulab.com/products/pla-cf?id=41158283591816" target="_blank" rel="noopener">PLA-CF filament for WUDI printed parts ↗</a></td>
-                      <td>1 spool</td><td>Print quantities follow the selected hand configuration</td>
+                      <td><a href="https://us.store.bambulab.com/products/pla-basic-filament" target="_blank" rel="noopener">PLA Basic filament ↗</a></td>
+                      <td>1 spool</td><td>WUDI exoskeleton printed parts</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://us.store.bambulab.com/products/pla-cf" target="_blank" rel="noopener">PLA-CF filament ↗</a></td>
+                      <td>1 spool</td><td>Structural printed parts</td>
                     </tr>
                     <tr>
                       <td><a href="https://www.amazon.com/s?k=M3+assorted+screw+and+nut+kit" target="_blank" rel="noopener">M3 assorted screw and nut kit ↗</a></td>
@@ -104,6 +109,42 @@
                     <tr>
                       <td><a href="https://www.amazon.com/M3-Locknuts-Self-Lock-Stainless-Self/dp/B0D146SHYF/" target="_blank" rel="noopener">M3 stainless-steel lock nuts ↗</a></td>
                       <td>1 pack</td><td>Secure the finger pivots</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F4CQ9F32" target="_blank" rel="noopener">M3 × 10 mm Chicago screws ↗</a></td>
+                      <td>1 pack (24 sets)</td><td>Binding posts for linkage assembly</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0DQWG9QWT" target="_blank" rel="noopener">M3 external E-clips ↗</a></td>
+                      <td>1 pack (200)</td><td>Retain 3 mm shafts and pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0FDGZKYPJ" target="_blank" rel="noopener">M3 × 6 mm steel shim washer set ↗</a></td>
+                      <td>1 set (48)</td><td>0.1 / 0.2 / 0.3 / 0.5 mm linkage spacing</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F54CX2GP" target="_blank" rel="noopener">3 × 15 mm dowel pins ↗</a></td>
+                      <td>1 pack (100)</td><td>Linkage pivot pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F3JRJKKD" target="_blank" rel="noopener">3 × 18 mm dowel pins ↗</a></td>
+                      <td>1 pack (100)</td><td>Linkage pivot pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F6D3FQPM" target="_blank" rel="noopener">3 × 20 mm dowel pins ↗</a></td>
+                      <td>1 pack (100)</td><td>Linkage pivot pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F54F66WF" target="_blank" rel="noopener">3 × 35 mm dowel pins ↗</a></td>
+                      <td>1 pack (100)</td><td>Linkage pivot pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0F54CXCRV" target="_blank" rel="noopener">3 × 40 mm dowel pins ↗</a></td>
+                      <td>1 pack (50)</td><td>Long linkage pivot pins</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B01M0LYUBB" target="_blank" rel="noopener">Galvanized-steel connector plates, 2.36 × 0.63 in ↗</a></td>
+                      <td>1 pack (20)</td><td>Flat metal joining plates</td>
                     </tr>
                     <tr>
                       <td><a href="https://www.amazon.com/gp/product/B0093CQPW8/" target="_blank" rel="noopener">3M TB641 gripping material ↗</a></td>
@@ -124,6 +165,14 @@
                       <td>16</td><td>Encoder leads</td>
                     </tr>
                     <tr>
+                      <td><a href="https://www.amazon.com/dp/B073SNPF2C" target="_blank" rel="noopener">JST XH2.54 3-pin male/female cable sets ↗</a></td>
+                      <td>2 packs (20 sets each)</td><td>15 cm, 26 AWG connector leads</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/s?k=20+Pcs+Straight+Single+Row+2.54mm+40+Pin+Male+Header+Breakaway" target="_blank" rel="noopener">2.54 mm 40-pin male breakaway headers ↗</a></td>
+                      <td>1 pack (20 strips)</td><td>PCB and module connections</td>
+                    </tr>
+                    <tr>
                       <td><a href="https://www.aliexpress.com/i/2255800720094040.html" target="_blank" rel="noopener">STM32F042K6T6 core board ↗</a></td>
                       <td>1</td><td>Same MCU module used by DexUMI</td>
                     </tr>
@@ -142,6 +191,10 @@
                     <tr>
                       <td><a href="https://www.amazon.com/s?k=5V+1A+regulated+DC+power+supply" target="_blank" rel="noopener">5.0 V / 1.0 A DC power supply ↗</a></td>
                       <td>1</td><td>Mainboard power</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.amazon.com/dp/B0H2W2ZFR7" target="_blank" rel="noopener">USB 2.0 male to 2-pin bare-wire power cable, 50 cm ↗</a></td>
+                      <td>1 pack (2 cables)</td><td>24 AWG USB power lead</td>
                     </tr>
                     <tr>
                       <td><a href="https://www.amazon.com/s?k=XT30+male+female+connector+kit" target="_blank" rel="noopener">XT30 male/female connector set ↗</a></td>
@@ -187,8 +240,38 @@
         </section>
       </li>
 
-      <li class="flow-step" id="firmware">
+      <li class="flow-step" id="print-assemble">
         <div class="flow-marker" aria-hidden="true">03</div>
+        <section>
+          <header class="step-heading">
+            <div>
+              <h2>Print and assemble the exoskeleton</h2>
+            </div>
+            <div class="firmware-actions">
+              <a class="button button--primary" href="./downloads/exo.step" download>CAD model · STEP ↓</a>
+              <a class="button button--primary" href="./downloads/exo.stl" download>Print model · STL ↓</a>
+            </div>
+          </header>
+          <p class="pcb-description">The STEP and STL files contain the exoskeleton CAD. Use the STL for printing and the STEP model for CAD reference or modification.</p>
+          <div class="print-guide">
+            <article class="print-settings">
+              <h3>Print settings</h3>
+              <dl>
+                <div><dt>Material</dt><dd>PLA Basic</dd></div>
+                <div><dt>Layer height</dt><dd>0.12 mm</dd></div>
+                <div><dt>Wall loops</dt><dd>4</dd></div>
+              </dl>
+            </article>
+            <figure class="finger-mark-guide">
+              <img src="./build_exoskeleton/finger-part-marks.webp" width="1600" height="1117" loading="lazy" decoding="async" alt="WUDI exoskeleton finger parts marked with one to four lines for identification.">
+              <figcaption>Each printed finger part has an identification mark: <strong>I</strong> = index, <strong>II</strong> = middle, <strong>III</strong> = ring, and <strong>IIII</strong> = little finger.</figcaption>
+            </figure>
+          </div>
+        </section>
+      </li>
+
+      <li class="flow-step" id="firmware">
+        <div class="flow-marker" aria-hidden="true">04</div>
         <section>
           <header class="step-heading">
             <div>
@@ -202,7 +285,7 @@
           </header>
           <div class="firmware-grid">
             <article>
-              <h3><span>3A</span> Flash the STM32</h3>
+              <h3><span>4A</span> Flash the STM32</h3>
               <p>WUDI keeps the same STM32F042K6T6 and dual-ADS1256 modules as DexUMI; only the carrier mainboard is replaced.</p>
               <ol>
                 <li>Install OpenOCD: <code>sudo apt-get install openocd</code>.</li>
@@ -215,7 +298,7 @@
             </article>
 
             <article>
-              <h3><span>3B</span> Connect the board to the PC</h3>
+              <h3><span>4B</span> Connect the board to the PC</h3>
               <ol>
                 <li>Insert the STM32 core board in the top socket and both ADS1256 modules in the lower sockets. Confirm orientation before applying power.</li>
                 <li>Connect regulated <strong>5.0 V / 1.0 A</strong> through the XT30 female lead, then turn on the board switch.</li>
